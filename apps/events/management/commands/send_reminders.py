@@ -17,39 +17,40 @@ def send_reminder_email(participant, event):
         f"Iltimos, o‘z vaqtida yetib boring!"
     )
 
-    send_mail(
-        subject=subject,
-        message=message,
-        from_email="jamshidbekshodibekov2004@gmail.com",
-        recipient_list=[participant.email],
-        fail_silently=False,
-    )
+    try:
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email="jamshidbekshodibekov2004@gmail.com",
+            recipient_list=[participant.email],
+            fail_silently=False,
+        )
+    except Exception as e:
+        print(f"Email yuborishda xatolik: {participant.email} - {e}")
 
 
 class Command(BaseCommand):
     help = "Bugungi va ertangi tadbirlar uchun ishtirokchilarga email eslatma yuboradi"
-
-    def handle(self, *args, **kwargs):
+    
+    def get_upcoming_events(self):
         today = timezone.localdate()
         tomorrow = today + timedelta(days=1)
 
-        events = Event.objects.filter(date__in=[today, tomorrow])
+        for event in Event.objects.filter(date__in=[today, tomorrow]).iterator():
+            yield event
 
-        if not events.exists():
-            self.stdout.write(self.style.WARNING("Bugun yoki ertaga tadbir yo‘q."))
-            return
+    def handle(self, *args, **kwargs):
+        threads = []
 
-        self.stdout.write(self.style.SUCCESS(f"{events.count()} ta tadbir topildi."))
-
-        for event in events:
-            participants = event.participants.filter(eventparticipant__is_active=True)
-
-            for participant in participants:
+        for event in self.get_upcoming_events():
+            for participant in event.participants.all():
                 thread = Thread(target=send_reminder_email, args=(participant, event))
                 thread.start()
+                threads.append(thread)
 
-            self.stdout.write(
-                self.style.SUCCESS(
-                    f"Tadbir: {event.title} uchun {participants.count()} ta email yuborildi."
-                )
-            )
+        for thread in threads:
+            thread.join()
+
+        self.stdout.write(self.style.SUCCESS("Emails sent successfully"))
+
+    

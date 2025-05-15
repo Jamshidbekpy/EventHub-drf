@@ -1,0 +1,89 @@
+<style>
+  .event-detail {
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #2c3e50;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+  }
+
+  .event-detail h2 {
+    color: #34495e;
+    margin-bottom: 15px;
+  }
+
+  .event-detail img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+
+  .event-detail p {
+    color: #555;
+    font-size: 1.1rem;
+    margin: 8px 0;
+  }
+
+  .event-detail p strong {
+    color: #2980b9;
+  }
+
+  .event-description {
+    margin-top: 20px;
+    font-style: italic;
+    color: #7f8c8d;
+  }
+
+  .register-btn {
+    margin-top: 25px;
+  }
+
+  .register-btn button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .register-btn button:hover {
+    background-color: #2980b9;
+  }
+
+  .already-registered {
+    margin-top: 20px;
+    font-weight: 600;
+    color: #27ae60;
+  }
+</style>
+
+<div class="event-detail">
+  <h2>{{ event.title }}</h2>
+  {% if event.image %}
+    <img src="{{ event.image.url }}" alt="{{ event.title }}">
+  {% endif %}
+
+  <p><strong>Sana:</strong> {{ event.date }}</p>
+  <p><strong>Vaqt:</strong> {{ event.start_time }} – {{ event.end_time }}</p>
+  <p><strong>Joylashuv:</strong> {{ event.location }}</p>
+  <p><strong>Ishtirokchilar:</strong> {{ event.participants.count }} / {{ event.max_participants }}</p>
+  <p><strong>Status:</strong> {{ event.status }}</p>
+  <p class="event-description">{{ event.description }}</p>
+
+  {% if not is_participant %}
+    <form method="post" class="register-btn">
+      {% csrf_token %}
+      <input type="hidden" name="slug" value="{{ event.slug }}">
+      <button type="submit">Tadbirga Ro‘yxatdan o‘tish</button>
+    </form>
+  {% else %}
+    <p class="already-registered">Siz ushbu tadbirda ishtirokchisiz.</p>
+  {% endif %}
+</div>

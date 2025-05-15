@@ -1,6 +1,7 @@
 from django.db import models
 from apps.base.models import BaseModel
 from apps.accounts.models import CustomUser
+from django.utils.text import slugify
 
 # Create your models here.
 
@@ -32,6 +33,10 @@ class Event(BaseModel):
     class Meta:
         verbose_name = "Event"
         verbose_name_plural = "Events"
+        
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
