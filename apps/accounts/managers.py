@@ -2,7 +2,6 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.hashers import make_password
 
 
-
 class CustomUserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -17,7 +16,7 @@ class CustomUserManager(BaseUserManager):
         user.password = make_password(password)
         return user
 
-    def _create_user(self,email, password, **extra_fields):
+    def _create_user(self, email, password, **extra_fields):
         """
         Create and save a user with the givenemail, and password.
         """
@@ -58,9 +57,7 @@ class CustomUserManager(BaseUserManager):
 
     create_superuser.alters_data = True
 
-    async def acreate_superuser(
-        self, email, password=None, **extra_fields
-    ):
+    async def acreate_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
 
@@ -72,5 +69,3 @@ class CustomUserManager(BaseUserManager):
         return await self._acreate_user(email, password, **extra_fields)
 
     acreate_superuser.alters_data = True
-
-   

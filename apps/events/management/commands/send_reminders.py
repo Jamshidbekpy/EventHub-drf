@@ -20,9 +20,9 @@ def send_reminder_email(participant, event):
     send_mail(
         subject=subject,
         message=message,
-        from_email='jamshidbekshodibekov2004@gmail.com',
+        from_email="jamshidbekshodibekov2004@gmail.com",
         recipient_list=[participant.email],
-        fail_silently=False
+        fail_silently=False,
     )
 
 
@@ -48,6 +48,8 @@ class Command(BaseCommand):
                 thread = Thread(target=send_reminder_email, args=(participant, event))
                 thread.start()
 
-            self.stdout.write(self.style.SUCCESS(
-                f"Tadbir: {event.title} uchun {participants.count()} ta email yuborildi."
-            ))
+            self.stdout.write(
+                self.style.SUCCESS(
+                    f"Tadbir: {event.title} uchun {participants.count()} ta email yuborildi."
+                )
+            )

@@ -8,20 +8,29 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('events', '0002_alter_eventparticipant_is_active'),
+        ("events", "0002_alter_eventparticipant_is_active"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='event',
-            name='owner',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='owner_events', to=settings.AUTH_USER_MODEL),
+            model_name="event",
+            name="owner",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="owner_events",
+                to=settings.AUTH_USER_MODEL,
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='event',
-            name='participants',
-            field=models.ManyToManyField(related_name='participated_events', through='events.EventParticipant', to=settings.AUTH_USER_MODEL),
+            model_name="event",
+            name="participants",
+            field=models.ManyToManyField(
+                related_name="participated_events",
+                through="events.EventParticipant",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]
