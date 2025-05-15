@@ -1,16 +1,17 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from django.shortcuts import get_object_or_404
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from .models import Event, EventParticipant
-from django.contrib.auth import get_user_model
-from .serializers import EventListCreateSerializer
-from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_str
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from django.contrib.auth.tokens import default_token_generator
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes, force_str
+from rest_framework.permissions import IsAuthenticated
+from .serializers import EventListCreateSerializer
+from django.shortcuts import get_object_or_404
+from django.contrib.auth import get_user_model
+from rest_framework.response import Response
+from .models import Event, EventParticipant
+from rest_framework.views import APIView
 from django.core.mail import send_mail
+from rest_framework import status
 
 User = get_user_model()
 
@@ -27,6 +28,28 @@ class EventRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = EventListCreateSerializer
 
     lookup_url_kwarg = "slug"
+    
+    def destroy(self, request, *args, **kwargs):
+        user = request.user
+        instance = self.get_object()
+        if instance.owner == user:
+            return super().destroy(request, *args, **kwargs)
+        else:
+            return Response(
+                {"error": "You do not have permission to delete this event."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+            
+    def update(self, request, *args, **kwargs):
+        user = request.user
+        instance = self.get_object()
+        if instance.owner == user:
+            return super().update(request, *args, **kwargs)
+        else:
+            return Response(
+                {"error": "You do not have permission to update this event."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
 
 
 class RegisterEventAPIView(APIView):
