@@ -5,6 +5,7 @@ from apps.accounts.models import CustomUser
 # Create your models here.
 
 class Event(BaseModel):
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='owner_events')
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
     description = models.TextField()
@@ -12,7 +13,7 @@ class Event(BaseModel):
     start_time = models.TimeField()
     end_time = models.TimeField()
     location = models.CharField(max_length=255)
-    participants = models.ManyToManyField(CustomUser, related_name='events') 
+    participants = models.ManyToManyField(CustomUser, related_name='participated_events', through='EventParticipant') 
     max_participants = models.PositiveIntegerField()
     image = models.ImageField(upload_to='event_images/', null=True, blank=True)
     
@@ -28,6 +29,24 @@ class Event(BaseModel):
         verbose_name_plural = 'Events'
         
     def __str__(self):
-        return self.title   
+        return self.title  
+    
+    
+class EventParticipant(models.Model):
+    """
+    Event registration model
+    """
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='event_registrations')
+    event = models.ForeignKey(Event, related_name='registrations', on_delete=models.CASCADE)
+    registered_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = ('user', 'event')
+        verbose_name = 'Event Registration'
+        verbose_name_plural = 'Event Registrations'
+
+    def str(self):
+        return f"{self.user.username} - {self.event.title}" 
     
 
