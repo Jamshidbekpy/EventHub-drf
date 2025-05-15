@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # my apps
     'apps.base',
     'apps.accounts',
+    'apps.events',
 ]
 
 MIDDLEWARE = [
@@ -168,14 +169,13 @@ SIMPLE_JWT = {
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
-
-# email settings
+# # email settings
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'  # SMTP server host
-# EMAIL_PORT = 587  # SMTP server port (587 for TLS, 465 for SSL)
-# EMAIL_USE_TLS = True  # True for TLS, False for SSL
-# EMAIL_HOST_USER = 'jamshidbekdev04@gmail.com'  # SMTP server username
-# EMAIL_HOST_PASSWORD = 'hbjg kcsw xmll ilol'  # SMTP server password
-# EMAIL_USE_SSL = False  # Set to True if using SSL
-# DEFAULT_FROM_EMAIL = 'jamshidbekdev04@example.com'  # Default sender email address
+EMAIL_HOST = 'smtp.gmail.com'  # SMTP server host
+EMAIL_PORT = 587  # SMTP server port (587 for TLS, 465 for SSL)
+EMAIL_USE_TLS = True  # True for TLS, False for SSL
+EMAIL_HOST_USER = 'jamshidbekdev04@gmail.com'  # SMTP server username
+EMAIL_HOST_PASSWORD = 'hbjg kcsw xmll ilol'  # SMTP server password
+EMAIL_USE_SSL = False  # Set to True if using SSL
+DEFAULT_FROM_EMAIL = 'jamshidbekdev04@gmail.com'  # Default sender email address

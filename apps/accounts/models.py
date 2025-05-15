@@ -5,13 +5,8 @@ from .managers import CustomUserManager as UserManager
 # Create your models here.
 
 class CustomUser(AbstractUser):
-    TYPE = (
-        ('organizer', 'Organizer'),
-        ('participant', 'Participant'),
-        ('admin', 'Admin'),
-    )
     username = None
-    role = models.CharField(max_length=20, choices=TYPE, default='participant')
+    is_organizer_pending = models.BooleanField(default=False)
     email = models.EmailField(unique=True)
     
     
