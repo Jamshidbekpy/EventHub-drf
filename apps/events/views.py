@@ -78,7 +78,7 @@ class RegisterEventAPIView(APIView):
         uid = urlsafe_base64_encode(force_bytes(participant.pk))
         token = default_token_generator.make_token(participant)
         activation_link = (
-            f"http://{current_site.domain}/accounts/api/activate/{uid}/{token}/"
+            f"http://{current_site.domain}/events/api/events/activate/{uid}/{token}/"
         )
 
         message = f"Salom {participant.first_name}, tadbirdan o'tganingizni faollashtirish uchun ushbu havolani bosing: {activation_link}"
@@ -97,6 +97,7 @@ class RegisterEventAPIView(APIView):
 
 
 class ActivationRegisterAPIView(APIView):
+    permission_classes = []
     def get(self, request, uidb64, token):
         try:
             uid = force_str(urlsafe_base64_decode(uidb64))

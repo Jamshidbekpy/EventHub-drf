@@ -168,10 +168,6 @@ SIMPLE_JWT = {
 
 AUTH_USER_MODEL = "accounts.CustomUser"
 
-# AUTHENTICATION_BACKENDS = [
-#     'apps.accounts.backends.EmailBackend',  
-#     'django.contrib.auth.backends.ModelBackend',  
-# ]
 
 # # email settings
 
