@@ -15,7 +15,7 @@ def send_email_when_organizer_confirmed(sender, instance, created, **kwargs):
         old_user = User.objects.get(pk=instance.pk)
     except User.DoesNotExist:
         return
-    if not old_user.is_organizer and instance.is_organizer:
+    if not old_user.is_organizer_pending and instance.is_organizer_pending:
         send_mail(
             subject="Tashkilotchi sifatida tasdiqlandingiz",
             message="Siz endi tashkilotchi sifatida tasdiqlandingiz!",
