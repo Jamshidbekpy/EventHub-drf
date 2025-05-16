@@ -26,4 +26,3 @@ class EventDetail(LoginRequiredMixin, DetailView):
             id=participant.id
         ).exists()
         return context
-
