@@ -1,7 +1,7 @@
 # EventHub-drf
 for UIC exam
 
-############################UZB
+## UZB
 
 # EventHub Proyekti
 
@@ -106,7 +106,7 @@ Ushbu bilim va texnologiyalardan foydalanilgan.
 
 
 
-#################################ENG
+## ENG
 
 
 # EventHub Project
@@ -147,10 +147,6 @@ api/token/
 api/token/refresh/
 api/logout/
 
-pgsql
-Copy
-Edit
-
 ---
 
 ### 3) events app
@@ -177,9 +173,6 @@ api/events/activate/<uidb64>/<token>/
 api/events/str:slug/cancel/
 api/events/confirm-logout/<uidb64>/<token>/
 
-yaml
-Copy
-Edit
 
 ---
 
@@ -192,9 +185,6 @@ Edit
 events-list
 event-detail
 
-yaml
-Copy
-Edit
 
 ---
 
