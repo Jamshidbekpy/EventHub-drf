@@ -34,9 +34,9 @@ Bu EventHub proyekti bo'lib, men buni 4 ta app ochib qildim.
 
 **APILAR:**
 ###### api/register/
-###### api/activate/<uidb64>/<token>/
+###### api/activate/"uidb64"/"token"/
 ###### api/confirm-organizer/
-###### api/activate-organizer/<uidb64>/<token>/
+###### api/activate-organizer/"uidb64"/"token"/
 ###### api/token/
 ###### api/token/refresh/
 ###### api/logout/
@@ -65,9 +65,9 @@ Bu EventHub proyekti bo'lib, men buni 4 ta app ochib qildim.
 ###### api/events/
 ###### api/events/str:slug/
 ###### api/events/str:slug/register/
-###### api/events/activate/<uidb64>/<token>/
+###### api/events/activate/"uidb64"/"token"/
 ###### api/events/str:slug/cancel/
-###### api/events/confirm-logout/<uidb64>/<token>/
+###### api/events/confirm-logout/"uidb64"/"token"/
 
 
 ---
@@ -140,9 +140,9 @@ and one app is built using **traditional Django with templates** (`events2`).
 
 **API Endpoints:**
 ###### api/register/
-###### api/activate/<uidb64>/<token>/
+###### api/activate/"uidb64"/"token"/
 ###### api/confirm-organizer/
-###### api/activate-organizer/<uidb64>/<token>/
+###### api/activate-organizer/"uidb64"/"token"/
 ###### api/token/
 ###### api/token/refresh/
 ###### api/logout/
@@ -169,9 +169,9 @@ and one app is built using **traditional Django with templates** (`events2`).
 ###### api/events/
 ###### api/events/str:slug/
 ###### api/events/str:slug/register/
-###### api/events/activate/<uidb64>/<token>/
+###### api/events/activate/"uidb64"/"token"/
 ###### api/events/str:slug/cancel/
-###### api/events/confirm-logout/<uidb64>/<token>/
+###### api/events/confirm-logout/"uidb64"/"token"/
 
 
 ---
