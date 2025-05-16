@@ -115,6 +115,29 @@ class ConfirmOrganizerAPIView(APIView):
         )
         
 class ActivationOrganizer(APIView):
-    pass
+    def get(self, request, uidb64, token):
+        try:
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+        except (User.DoesNotExist, ValueError, OverflowError, TypeError):
+            return Response(
+                {"error": "Noto‘g‘ri aktivatsiya havolasi"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if default_token_generator.check_token(user, token):
+            user.is_organizer = True 
+            user.save()
+
+            return Response(
+                {"message": "Foydalanuvchi tashkilotchi sifatida tasdiqlandi"},
+                status=status.HTTP_200_OK,
+            )
+        else:
+            return Response(
+                {"error": "Havola yaroqsiz yoki eskirgan"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
     
     

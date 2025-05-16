@@ -10,6 +10,13 @@ urlpatterns = [
         name="api_activate",
     ),
     
+    path("api/confirm-organizer/", ConfirmOrganizerAPIView.as_view(), name="api_confirm_organizer"),
+    path(
+        "api/activate-organizer/<uidb64>/<token>/",
+        ActivationOrganizer.as_view(),
+        name="api_activate_organizer",
+    ),
+    
 ]
 
 urlpatterns += [
