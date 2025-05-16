@@ -1,15 +1,12 @@
 from django.db.models.signals import post_save
 from django.core.mail import send_mail
-from asgiref.sync import sync_to_async
 from django.dispatch import receiver
-import asyncio
+import threading
 
 from .models import Event
 
-
-@sync_to_async
 def send_email(participant, instance: Event):
-    subject = f"Tadbir ma'lumotlari o'zgardi"
+    subject = "Tadbir ma'lumotlari o'zgardi"
     message = (
         f"Hurmatli {participant.get_full_name()},\n\n"
         f"{instance.title} nomli tadbir sanasi {instance.date} etib belgilandi.\n"
@@ -33,11 +30,10 @@ def event_updated(sender, instance, created, **kwargs):
     if created:
         return
 
-    async def notify_all():
-        tasks = [
+    def notify_all():
+        for participant in instance.participants.all():
             send_email(participant, instance)
-            for participant in instance.participants.all()
-        ]
-        await asyncio.gather(*tasks)
 
-    asyncio.run(notify_all())
+    thread = threading.Thread(target=notify_all)
+    thread.start()
+    

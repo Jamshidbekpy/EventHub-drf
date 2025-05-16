@@ -3,6 +3,7 @@ from .models import Event
 
 
 class EventListCreateSerializer(serializers.ModelSerializer):
+    slug = serializers.SlugField(read_only=True)
 
     class Meta:
         model = Event
@@ -33,3 +34,8 @@ class EventRetrieveUpdateDestroySerializer(serializers.ModelSerializer):
             "max_participants",
             "image",
         )
+        
+        extra_kwargs = {
+            "slug": {"read_only": True},
+            
+        }

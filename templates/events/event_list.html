@@ -78,7 +78,7 @@
     <p class="event-info tashkilotchi"><strong>Tashkilotchi:</strong> {{ event.owner.get_full_name }}</p>
     <p class="event-info status"><strong>Status:</strong> {{ event.status }}</p>
     <p class="event-info ishtirokchilar"><strong>Ishtirokchilar:</strong> {{ event.participants.count }} / {{ event.max_participants }}</p>
-    <a href="{% url 'events:event_detail' slug=event.slug %}" class="event-link">Batafsil</a>
+    <a href="{% url 'events2:event_detail' slug=event.slug %}" class="event-link">Batafsil</a>
   </div>
 {% empty %}
   <p style="color: #95a5a6; font-style: italic;">Hozircha tadbirlar mavjud emas.</p>

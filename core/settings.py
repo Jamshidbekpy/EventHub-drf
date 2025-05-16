@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "apps.base",
     "apps.accounts",
     "apps.events",
+    "apps.events2",
 ]
 
 MIDDLEWARE = [
@@ -166,6 +167,11 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = "accounts.CustomUser"
+
+# AUTHENTICATION_BACKENDS = [
+#     'apps.accounts.backends.EmailBackend',  
+#     'django.contrib.auth.backends.ModelBackend',  
+# ]
 
 # # email settings
 

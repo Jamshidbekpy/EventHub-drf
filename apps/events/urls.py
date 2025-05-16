@@ -13,7 +13,7 @@ app_name = "events"
 urlpatterns = [
     path("api/events/", EventListCreateAPIView.as_view(), name="event-list-create"),
     path(
-        "/api/events/<str:slug>/",
+        "api/events/<str:slug>/",
         EventRetrieveUpdateDestroyAPIView.as_view(),
         name="event-retrieve-update-destroy",
     ),
@@ -40,12 +40,3 @@ urlpatterns = [
 ]
 
 
-# templates
-
-from django.urls import path
-from .views import EventsList, EventDetail
-
-urlpatterns = [
-    path("events/", EventsList.as_view(), name="events_list"),
-    path("events/<slug:slug>/", EventDetail.as_view(), name="event_detail"),
-]
