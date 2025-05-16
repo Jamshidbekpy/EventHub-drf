@@ -21,6 +21,20 @@ User = get_user_model()
 class EventListCreateAPIView(ListCreateAPIView):
     queryset = Event.objects.filter(is_active=True)
     serializer_class = EventListCreateSerializer
+    
+    def create(self, request, *args, **kwargs):
+        user = request.user
+        if user.is_organizer_pending:
+            return Response(
+                {"error": "You are not authorized to create an event."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
