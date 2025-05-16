@@ -87,3 +87,34 @@ class LogoutView(APIView):
         except TokenError:
             return Response({"error": "Invalid or expired token."}, status=status.HTTP_400_BAD_REQUEST)
     
+    
+    
+    
+class ConfirmOrganizerAPIView(APIView):
+    def post(self, request):
+        user = request.user
+        current_site = get_current_site(request)
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        token = default_token_generator.make_token(user)
+        activation_link = (
+            f"http://{current_site.domain}/accounts/api/activate/{uid}/{token}/"
+        )
+
+        message = f"{user.first_name} {user.last_name} sizga tashkilotchilikka ariza tashladi! Uni activlashtirish uchun {activation_link} ni bosing!"
+
+        send_mail(
+            subject=f"Activation status",
+            message=message,
+            from_email=user.email,
+            recipient_list=["jamshidbekshodibekov2004@gmail.com"],
+        )
+
+        return Response(
+            {"message": "Superuser emailiga aktivatsiya havolasi yuborildi."},
+            status=status.HTTP_201_CREATED,
+        )
+        
+class ActivationOrganizer(APIView):
+    pass
+    
+    

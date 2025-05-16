@@ -1,5 +1,5 @@
+from .views import RegisterAPIView, ActivateAccountAPIView, LogoutView, ConfirmOrganizerAPIView, ActivationOrganizer
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .views import RegisterAPIView, ActivateAccountAPIView, LogoutView
 from django.urls import path
 
 urlpatterns = [
@@ -9,6 +9,7 @@ urlpatterns = [
         ActivateAccountAPIView.as_view(),
         name="api_activate",
     ),
+    
 ]
 
 urlpatterns += [

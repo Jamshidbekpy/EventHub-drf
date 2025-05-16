@@ -1,7 +1,7 @@
-from django.db import models
-from apps.base.models import BaseModel
 from apps.accounts.models import CustomUser
+from apps.base.models import BaseModel
 from django.utils.text import slugify
+from django.db import models
 
 # Create your models here.
 
