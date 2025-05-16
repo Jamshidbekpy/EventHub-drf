@@ -34,8 +34,7 @@ class EventRetrieveUpdateDestroySerializer(serializers.ModelSerializer):
             "max_participants",
             "image",
         )
-        
+
         extra_kwargs = {
             "slug": {"read_only": True},
-            
         }

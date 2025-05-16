@@ -103,9 +103,7 @@ class ConfirmOrganizerAPIView(APIView):
         current_site = get_current_site(request)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         token = default_token_generator.make_token(user)
-        activation_link = (
-            f"http://{current_site.domain}/accounts/api/activate-organizer/{uid}/{token}/"
-        )
+        activation_link = f"http://{current_site.domain}/accounts/api/activate-organizer/{uid}/{token}/"
 
         message = f"{user.first_name} {user.last_name} sizga tashkilotchilikka ariza tashladi! Uni activlashtirish uchun {activation_link} ni bosing!"
 
@@ -124,6 +122,7 @@ class ConfirmOrganizerAPIView(APIView):
 
 class ActivationOrganizer(APIView):
     permission_classes = []
+
     def get(self, request, uidb64, token):
         try:
             uid = force_str(urlsafe_base64_decode(uidb64))

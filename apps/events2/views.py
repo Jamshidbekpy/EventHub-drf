@@ -3,7 +3,6 @@ from django.views.generic import ListView, DetailView
 from apps.events.models import Event
 
 
-
 class EventsList(ListView):
     model = Event
     template_name = "events_list.html"

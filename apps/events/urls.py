@@ -38,5 +38,3 @@ urlpatterns = [
         name="api_confirm_logout_event",
     ),
 ]
-
-

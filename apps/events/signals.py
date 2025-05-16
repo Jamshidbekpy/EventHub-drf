@@ -5,6 +5,7 @@ import threading
 
 from .models import Event
 
+
 def send_email(participant, instance: Event):
     subject = "Tadbir ma'lumotlari o'zgardi"
     message = (
@@ -36,4 +37,3 @@ def event_updated(sender, instance, created, **kwargs):
 
     thread = threading.Thread(target=notify_all)
     thread.start()
-    

@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 
 User = get_user_model()
 
+
 @receiver(pre_save, sender=User)
 def store_old_is_organizer_pending(sender, instance, **kwargs):
     if instance.pk:
@@ -14,13 +15,18 @@ def store_old_is_organizer_pending(sender, instance, **kwargs):
         except User.DoesNotExist:
             instance._old_is_organizer_pending = None
 
+
 @receiver(post_save, sender=User)
 def send_email_when_organizer_confirmed(sender, instance, created, **kwargs):
     if created:
         return
 
     # Oldingi qiymat True emas edi, yangi qiymat True bo‘ldi
-    if hasattr(instance, '_old_is_organizer_pending') and not instance._old_is_organizer_pending and instance.is_organizer_pending:
+    if (
+        hasattr(instance, "_old_is_organizer_pending")
+        and not instance._old_is_organizer_pending
+        and instance.is_organizer_pending
+    ):
         send_mail(
             subject="Tashkilotchi sifatida tasdiqlandingiz",
             message="Siz endi tashkilotchi sifatida tasdiqlandingiz!",

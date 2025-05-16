@@ -21,7 +21,7 @@ User = get_user_model()
 class EventListCreateAPIView(ListCreateAPIView):
     queryset = Event.objects.filter(is_active=True)
     serializer_class = EventListCreateSerializer
-    
+
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
@@ -98,6 +98,7 @@ class RegisterEventAPIView(APIView):
 
 class ActivationRegisterAPIView(APIView):
     permission_classes = []
+
     def get(self, request, uidb64, token):
         try:
             uid = force_str(urlsafe_base64_decode(uidb64))
@@ -128,7 +129,7 @@ class ActivationRegisterAPIView(APIView):
 
 class LogoutEventAPIView(APIView):
     def post(self, request, *args, **kwargs):
-        slug = kwargs.get("slug") 
+        slug = kwargs.get("slug")
         participant = request.user
         event = get_object_or_404(Event, slug=slug)
 
@@ -160,6 +161,7 @@ class LogoutEventAPIView(APIView):
 
 class ConfirmLogoutEventAPIView(APIView):
     permission_classes = []
+
     def get(self, request, uidb64, token):
         slug = request.query_params.get("slug")
         if not slug:
