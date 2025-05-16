@@ -8,16 +8,17 @@ User = get_user_model()
 
 fake = Faker()
 
+
 class Command(BaseCommand):
-    help = 'Generate fake events'
+    help = "Generate fake events"
 
     def add_arguments(self, parser):
-        parser.add_argument('count', type=int, help='Number of events to create')
+        parser.add_argument("count", type=int, help="Number of events to create")
 
     def handle(self, *args, **options):
-        count = options['count']
+        count = options["count"]
         for i in range(count):
-            user = User.objects.filter(is_organizer_pending=True).order_by('?').first()
+            user = User.objects.filter(is_organizer_pending=True).order_by("?").first()
             event = Event.objects.create(
                 title=fake.sentence(),
                 description=fake.text(),
@@ -26,9 +27,8 @@ class Command(BaseCommand):
                 end_time=fake.time(),
                 location=fake.address(),
                 max_participants=fake.random_int(min=1, max=100),
-                owner=user
+                owner=user,
             )
-            self.stdout.write(self.style.SUCCESS(f'Event created: {event.title}'))
+            self.stdout.write(self.style.SUCCESS(f"Event created: {event.title}"))
 
-        self.stdout.write(self.style.SUCCESS(f'{count} events created'))
-                
+        self.stdout.write(self.style.SUCCESS(f"{count} events created"))

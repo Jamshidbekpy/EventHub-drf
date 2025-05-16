@@ -28,7 +28,7 @@ class EventRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = EventListCreateSerializer
 
     lookup_url_kwarg = "slug"
-    
+
     def destroy(self, request, *args, **kwargs):
         user = request.user
         instance = self.get_object()
@@ -39,7 +39,7 @@ class EventRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
                 {"error": "You do not have permission to delete this event."},
                 status=status.HTTP_403_FORBIDDEN,
             )
-            
+
     def update(self, request, *args, **kwargs):
         user = request.user
         instance = self.get_object()
@@ -192,41 +192,29 @@ class ConfirmLogoutEventAPIView(APIView):
             )
 
 
-
-
-
-
-
-
-
-
-
-
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-
 class EventsList(ListView):
     model = Event
-    template_name = 'events_list.html'
-    context_object_name = 'events'
-    ordering = ['date', 'start_time']
+    template_name = "events_list.html"
+    context_object_name = "events"
+    ordering = ["date", "start_time"]
 
 
 class EventDetail(LoginRequiredMixin, DetailView):
     model = Event
-    template_name = 'events/event_detail.html'
-    context_object_name = 'event'
-    slug_field = 'slug'
-    slug_url_kwarg = 'slug'
+    template_name = "events/event_detail.html"
+    context_object_name = "event"
+    slug_field = "slug"
+    slug_url_kwarg = "slug"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         event = self.get_object()
         participant = self.request.user
-        context['is_participant'] = event.participants.filter(id=participant.id).exists()
+        context["is_participant"] = event.participants.filter(
+            id=participant.id
+        ).exists()
         return context
-
-    
-    

@@ -31,7 +31,7 @@ def send_reminder_email(participant, event):
 
 class Command(BaseCommand):
     help = "Bugungi va ertangi tadbirlar uchun ishtirokchilarga email eslatma yuboradi"
-    
+
     def get_upcoming_events(self):
         today = timezone.localdate()
         tomorrow = today + timedelta(days=1)
@@ -52,5 +52,3 @@ class Command(BaseCommand):
             thread.join()
 
         self.stdout.write(self.style.SUCCESS("Emails sent successfully"))
-
-    

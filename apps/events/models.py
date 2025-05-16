@@ -33,7 +33,7 @@ class Event(BaseModel):
     class Meta:
         verbose_name = "Event"
         verbose_name_plural = "Events"
-        
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super().save(*args, **kwargs)

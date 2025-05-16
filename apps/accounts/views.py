@@ -78,18 +78,24 @@ class LogoutView(APIView):
     def post(self, request):
         refresh_token = request.data.get("refresh")
         if not refresh_token:
-            return Response({"error": "Refresh token is required."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"error": "Refresh token is required."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         try:
             token = RefreshToken(refresh_token)
             token.blacklist()
-            return Response({"detail": "Logout successful."}, status=status.HTTP_205_RESET_CONTENT)
+            return Response(
+                {"detail": "Logout successful."}, status=status.HTTP_205_RESET_CONTENT
+            )
         except TokenError:
-            return Response({"error": "Invalid or expired token."}, status=status.HTTP_400_BAD_REQUEST)
-    
-    
-    
-    
+            return Response(
+                {"error": "Invalid or expired token."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+
 class ConfirmOrganizerAPIView(APIView):
     def post(self, request):
         user = request.user
@@ -113,7 +119,8 @@ class ConfirmOrganizerAPIView(APIView):
             {"message": "Superuser emailiga aktivatsiya havolasi yuborildi."},
             status=status.HTTP_201_CREATED,
         )
-        
+
+
 class ActivationOrganizer(APIView):
     def get(self, request, uidb64, token):
         try:
@@ -126,7 +133,7 @@ class ActivationOrganizer(APIView):
             )
 
         if default_token_generator.check_token(user, token):
-            user.is_organizer = True 
+            user.is_organizer_pending = True
             user.save()
 
             return Response(
@@ -138,6 +145,3 @@ class ActivationOrganizer(APIView):
                 {"error": "Havola yaroqsiz yoki eskirgan"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-
-    
-    

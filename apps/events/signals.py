@@ -2,10 +2,10 @@ from django.db.models.signals import post_save
 from django.core.mail import send_mail
 from asgiref.sync import sync_to_async
 from django.dispatch import receiver
-from django.conf import settings
 import asyncio
 
 from .models import Event
+
 
 @sync_to_async
 def send_email(participant, instance: Event):
@@ -27,10 +27,12 @@ def send_email(participant, instance: Event):
     except Exception as e:
         print(f"Email yuborishda xatolik: {participant.email} - {e}")
 
+
 @receiver(post_save, sender=Event)
 def event_updated(sender, instance, created, **kwargs):
-    if created:  
+    if created:
         return
+
     async def notify_all():
         tasks = [
             send_email(participant, instance)
@@ -39,4 +41,3 @@ def event_updated(sender, instance, created, **kwargs):
         await asyncio.gather(*tasks)
 
     asyncio.run(notify_all())
-    

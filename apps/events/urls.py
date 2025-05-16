@@ -40,15 +40,12 @@ urlpatterns = [
 ]
 
 
-
-
-
 # templates
 
 from django.urls import path
 from .views import EventsList, EventDetail
 
 urlpatterns = [
-    path('events/', EventsList.as_view(), name='events_list'),
-    path('events/<slug:slug>/', EventDetail.as_view(), name='event_detail'),
+    path("events/", EventsList.as_view(), name="events_list"),
+    path("events/<slug:slug>/", EventDetail.as_view(), name="event_detail"),
 ]
