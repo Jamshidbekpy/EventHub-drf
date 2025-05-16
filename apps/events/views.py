@@ -51,8 +51,15 @@ class EventRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     def destroy(self, request, *args, **kwargs):
         user = request.user
         instance = self.get_object()
+        participants_count = instance.participants.count()
         if instance.owner == user:
-            return super().destroy(request, *args, **kwargs)
+            if participants_count == 0:
+                return super().destroy(request, *args, **kwargs)
+            else:
+                return Response(
+                    {"error": "You cannot delete an event with participants."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
         else:
             return Response(
                 {"error": "You do not have permission to delete this event."},
