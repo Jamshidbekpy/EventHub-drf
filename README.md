@@ -33,13 +33,13 @@ Bu EventHub proyekti bo'lib, men buni 4 ta app ochib qildim.
 - h) Qo‘shimcha fake foydalanuvchi va organizer yaratish uchun **management commands** yozilgan.
 
 **APILAR:**
-api/register/
-api/activate/<uidb64>/<token>/
-api/confirm-organizer/
-api/activate-organizer/<uidb64>/<token>/
-api/token/
-api/token/refresh/
-api/logout/
+###### api/register/
+###### api/activate/<uidb64>/<token>/
+###### api/confirm-organizer/
+###### api/activate-organizer/<uidb64>/<token>/
+###### api/token/
+###### api/token/refresh/
+###### api/logout/
 
 
 ---
@@ -62,12 +62,12 @@ api/logout/
 
 **APILAR:**
 
-api/events/
-api/events/str:slug/
-api/events/str:slug/register/
-api/events/activate/<uidb64>/<token>/
-api/events/str:slug/cancel/
-api/events/confirm-logout/<uidb64>/<token>/
+###### api/events/
+###### api/events/str:slug/
+###### api/events/str:slug/register/
+###### api/events/activate/<uidb64>/<token>/
+###### api/events/str:slug/cancel/
+###### api/events/confirm-logout/<uidb64>/<token>/
 
 
 ---
@@ -79,8 +79,8 @@ api/events/confirm-logout/<uidb64>/<token>/
 
 **URLS:**
 
-events-list
-event-detail
+###### events-list
+###### event-detail
 
 
 ---
@@ -139,13 +139,13 @@ and one app is built using **traditional Django with templates** (`events2`).
 - h) Additional **management commands** are created to generate fake users and organizers.
 
 **API Endpoints:**
-api/register/
-api/activate/<uidb64>/<token>/
-api/confirm-organizer/
-api/activate-organizer/<uidb64>/<token>/
-api/token/
-api/token/refresh/
-api/logout/
+###### api/register/
+###### api/activate/<uidb64>/<token>/
+###### api/confirm-organizer/
+###### api/activate-organizer/<uidb64>/<token>/
+###### api/token/
+###### api/token/refresh/
+###### api/logout/
 
 ---
 
@@ -166,12 +166,12 @@ api/logout/
 - j) A management command is available to generate fake events.
 
 **API Endpoints:**
-api/events/
-api/events/str:slug/
-api/events/str:slug/register/
-api/events/activate/<uidb64>/<token>/
-api/events/str:slug/cancel/
-api/events/confirm-logout/<uidb64>/<token>/
+###### api/events/
+###### api/events/str:slug/
+###### api/events/str:slug/register/
+###### api/events/activate/<uidb64>/<token>/
+###### api/events/str:slug/cancel/
+###### api/events/confirm-logout/<uidb64>/<token>/
 
 
 ---
@@ -182,8 +182,8 @@ api/events/confirm-logout/<uidb64>/<token>/
 - Two templates are used.
 
 **URLs:**
-events-list
-event-detail
+###### events-list
+###### event-detail
 
 
 ---
