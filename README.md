@@ -49,7 +49,7 @@ Bu EventHub proyekti bo'lib, men buni 4 ta app ochib qildim.
 **Model: `Event`, `EventParticipant`**
 
 - a) List va Create uchun 1 ta API chiqarilgan. Create faqat tashkilotchi tomonidan amalga oshiriladi va `perform_create` orqali `owner` qilib saqlanadi.
-- b) Retrieve, Update va Delete uchun 1 ta API chiqarilgan. Update va Delete faqat `owner` tomonidan amalga oshiriladi. Retrieve esa barcha uchun ochiq.
+- b) Retrieve, Update va Delete uchun 1 ta API chiqarilgan. Update va Delete faqat `owner` tomonidan amalga oshiriladi. Retrieve esa barcha uchun ochiq.Delete agar owner bo'lsa , hamda Eventga foydaalanuvchi qo'shilmagan bo'lsa
 - c) Tadbirga foydalanuvchi ro'yxatdan o'tadi. Bu vaqtda `EventParticipant` modelidagi `is_active=False` bo'ladi. Emailga xabar yuboriladi.
 - d) Foydalanuvchi emailiga tashkilotchidan havola yuboriladi, u havola orqali bosgach `is_active=True` holatga o‘tadi.
 - e) Huddi shu holat tadbirdan chiqish uchun ham ishlatiladi (Logout Event), email notification bilan.
