@@ -127,9 +127,10 @@ class ActivationRegisterAPIView(APIView):
 
 
 class LogoutEventAPIView(APIView):
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
+        slug = kwargs.get("slug") 
         participant = request.user
-        event = get_object_or_404(Event, slug=request.data["slug"])
+        event = get_object_or_404(Event, slug=slug)
 
         if not event.participants.filter(pk=participant.pk).exists():
             return Response(
@@ -140,7 +141,7 @@ class LogoutEventAPIView(APIView):
         current_site = get_current_site(request)
         uid = urlsafe_base64_encode(force_bytes(participant.pk))
         token = default_token_generator.make_token(participant)
-        logout_link = f"http://{current_site.domain}/accounts/api/event-logout-confirm/{uid}/{token}/?slug={event.slug}"
+        logout_link = f"http://{current_site.domain}/events/api/events/confirm-logout/{uid}/{token}/?slug={event.slug}"
 
         message = f"Salom {participant.first_name}, agar siz ushbu tadbirdan chiqmoqchi bo‘lsangiz, quyidagi havolani bosing: {logout_link}"
 
@@ -158,6 +159,7 @@ class LogoutEventAPIView(APIView):
 
 
 class ConfirmLogoutEventAPIView(APIView):
+    permission_classes = []
     def get(self, request, uidb64, token):
         slug = request.query_params.get("slug")
         if not slug:
