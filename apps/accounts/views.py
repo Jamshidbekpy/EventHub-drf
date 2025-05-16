@@ -103,7 +103,7 @@ class ConfirmOrganizerAPIView(APIView):
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         token = default_token_generator.make_token(user)
         activation_link = (
-            f"http://{current_site.domain}/accounts/api/activate/{uid}/{token}/"
+            f"http://{current_site.domain}/accounts/api/activate-organizer/{uid}/{token}/"
         )
 
         message = f"{user.first_name} {user.last_name} sizga tashkilotchilikka ariza tashladi! Uni activlashtirish uchun {activation_link} ni bosing!"
@@ -122,16 +122,18 @@ class ConfirmOrganizerAPIView(APIView):
 
 
 class ActivationOrganizer(APIView):
+    permission_classes = []
     def get(self, request, uidb64, token):
         try:
             uid = force_str(urlsafe_base64_decode(uidb64))
             user = User.objects.get(pk=uid)
+            print(uid)
+            print(user)
         except (User.DoesNotExist, ValueError, OverflowError, TypeError):
             return Response(
                 {"error": "Noto‘g‘ri aktivatsiya havolasi"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-
         if default_token_generator.check_token(user, token):
             user.is_organizer_pending = True
             user.save()

@@ -32,3 +32,4 @@ urlpatterns += [
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("api/logout/", LogoutView.as_view(), name="logout"),
 ]
+
