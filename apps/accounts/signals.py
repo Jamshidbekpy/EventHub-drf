@@ -21,7 +21,6 @@ def send_email_when_organizer_confirmed(sender, instance, created, **kwargs):
     if created:
         return
 
-    # Oldingi qiymat True emas edi, yangi qiymat True bo‘ldi
     if (
         hasattr(instance, "_old_is_organizer_pending")
         and not instance._old_is_organizer_pending
